@@ -811,10 +811,6 @@ export default {
     ModalConfirmMATOos
     // 'pull-to': PullTo
   },
-  created () {
-    console.log('orderDetail:', this.orderDetail)
-    this.getOrderDetail(this.$route.params.id)
-  },
   emits: ['hideScanpacking', 'handleProses'],
   setup (_, context) {
     const { getVersiApps } = useNative(context)
