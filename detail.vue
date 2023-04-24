@@ -747,10 +747,11 @@
     <ModalConfirmCancel @do-post-goamrt-cancel="doPostOrderGomartCancel" />
     <ModalConfirmShowQr @do-generate-qr="handleGenerateQrCode" />
     <ModalMATOos
-      v-if="$route.params.status === '1102'"
-      :order-products="orderProducts"
-      :mat-no="orderDetail.matNo"
-      @show-confirm-modal="$refs.confirmModal.showModal()" />
+      v-if="showModal"
+      :order-detail="orderDetail"
+      :mat-no="matNo"
+      :shipment-number="shipmentNumber"
+      @close="showModal = false" />
     <ModalConfirmMATOos ref="confirmModal" />
   </div>
 </template>
@@ -814,6 +815,14 @@ export default {
     BIconArrowRight,
     ModalConfirmMATOos
     // 'pull-to': PullTo
+  },
+  data () {
+    return {
+      orderDetail: {},
+      showModal: false,
+      matNo: null,
+      shipmentNumber: null // add this new property
+    }
   },
   emits: ['hideScanpacking', 'handleProses'],
   setup (_, context) {
