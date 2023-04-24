@@ -746,12 +746,7 @@
     <ModalEditQty :product="productQty" @do-set-checkbox-product="doSetCheckboxProduct" />
     <ModalConfirmCancel @do-post-goamrt-cancel="doPostOrderGomartCancel" />
     <ModalConfirmShowQr @do-generate-qr="handleGenerateQrCode" />
-    <ModalMATOos
-      v-if="showModal"
-      :order-detail="orderDetail"
-      :mat-no="matNo"
-      :shipment-number="shipmentNumber"
-      @close="showModal = false" />
+    <ModalMATOos :order-products="orderProducts" @show-confirm-modal="$refs.confirmModal.showModal()" />
     <ModalConfirmMATOos ref="confirmModal" />
   </div>
 </template>
@@ -816,13 +811,9 @@ export default {
     ModalConfirmMATOos
     // 'pull-to': PullTo
   },
-  data () {
-    return {
-      orderDetail: {},
-      showModal: false,
-      matNo: null,
-      shipmentNumber: null // add this new property
-    }
+  created () {
+    console.log('orderDetail:', this.orderDetail)
+    this.getOrderDetail(this.$route.params.id)
   },
   emits: ['hideScanpacking', 'handleProses'],
   setup (_, context) {
