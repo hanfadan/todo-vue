@@ -19,7 +19,7 @@
           <div class="text-muted">
             No. Shipment
           </div>
-          <div>S-230420-AGKKVBH</div>
+          <div>{{ shipmentNumber }}</div>
         </div>
         <div class="label alfagift">
           Alfagift
@@ -335,14 +335,27 @@
 
 <script>
 import { BIconPlusCircle, BIconTelephoneFill, BIconChevronRight, BIconChevronDown, BIconDot, BIconCheckCircleFill, BIconX } from 'bootstrap-vue'
+import { checkStock } from '~/api/mat'
 
 export default {
   name: 'MatStore',
   components: { BIconPlusCircle, BIconTelephoneFill, BIconChevronRight, BIconChevronDown, BIconDot, BIconCheckCircleFill, BIconX },
   props: {
   },
+  data () {
+    return {
+      shipmentNumber: '',
+      matNo: ''
+    }
+  },
+  created () {
+    this.shipmentNumber = localStorage.getItem('shipmentNumber')
+    this.matNo = localStorage.getItem('matNo')
+  },
   setup (_, context) {
     const storedOrderProducts = JSON.parse(localStorage.getItem('orderProducts')) || []
+    const matNo = localStorage.getItem('matNo')
+    const shipmentNumber = localStorage.getItem('shipmentNumber')
 
     // Map the stored order products to include an `items` property
     // containing the product items for each product
@@ -361,9 +374,29 @@ export default {
         items
       }
     })
+    const itemsOos = storedOrderProducts.map(product => ({
+      id: product.id,
+      orderProductId: product.orderProductId,
+      plu: product.plu,
+      qtyOos: product.qtyOos
+    }))
+    const data = {
+      shipmentNo: shipmentNumber,
+      matNo,
+      itemsOos
+    }
+    // send request to API
+    checkStock(data)
+      .then((response) => {
+        console.log('Response:', response.data)
+      })
+      .catch((error) => {
+        console.log('Error:', error)
+      })
 
     return {
-      storedOrderProducts: productsWithItems
+      storedOrderProducts: productsWithItems,
+      itemsOos
     }
   }
 
