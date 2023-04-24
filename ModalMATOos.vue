@@ -102,18 +102,6 @@ export default {
       type: Array,
       required: true,
       default: () => []
-    },
-    orderDetail: {
-      type: Object,
-      required: true
-    },
-    matNo: {
-      type: String,
-      required: true
-    },
-    shipmentNumber: { // add this prop
-      type: String,
-      required: true
     }
   },
   methods: {
