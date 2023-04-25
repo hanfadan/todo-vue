@@ -21,7 +21,7 @@
           </div>
           <div>{{ shipmentNumber }}</div>
         </div>
-        <div class="label alfagift">
+        <div class="label alfamind">
           Alfagift
         </div>
       </div>
@@ -375,10 +375,10 @@ export default {
       }
     })
     const itemsOos = storedOrderProducts.map(product => ({
-      id: product.id,
+      id: product.productID,
       orderProductId: product.tbtopID,
       plu: product.plu,
-      qtyOos: product.qtyOos
+      qtyOos: product.attrQtyOos
     }))
     const data = {
       shipmentNo: shipmentNumber,
