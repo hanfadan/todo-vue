@@ -22,7 +22,8 @@
           <div>{{ shipmentNumber }}</div>
         </div>
         <div class="label alfamind">
-          Alfagift
+          {{ appId }}
+          {{ app }}
         </div>
       </div>
       <div class="section-divider" />
@@ -345,7 +346,9 @@ export default {
   data () {
     return {
       shipmentNumber: '',
-      matNo: ''
+      matNo: '',
+      appId: null,
+      app: ''
     }
   },
   created () {
@@ -389,6 +392,8 @@ export default {
     checkStock(data)
       .then((response) => {
         console.log('Response:', response.data)
+        this.appId = response.data.payload.appId
+        this.app = response.data.payload.app
       })
       .catch((error) => {
         console.log('Error:', error)
