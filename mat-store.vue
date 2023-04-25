@@ -376,7 +376,7 @@ export default {
     })
     const itemsOos = storedOrderProducts.map(product => ({
       id: product.id,
-      orderProductId: product.orderProductId,
+      orderProductId: product.tbtopID,
       plu: product.plu,
       qtyOos: product.qtyOos
     }))
